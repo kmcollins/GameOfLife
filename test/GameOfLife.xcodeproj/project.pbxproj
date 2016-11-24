@@ -17,6 +17,7 @@
 		848797C21DE60BF000A98F29 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848797C11DE60BF000A98F29 /* Coordinate.swift */; };
 		848797C41DE60C0400A98F29 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848797C31DE60C0400A98F29 /* EditViewController.swift */; };
 		848797C61DE60C4900A98F29 /* ColonyHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848797C51DE60C4900A98F29 /* ColonyHolder.swift */; };
+		954F8B411DE65628006A67F4 /* ColonyDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F8B401DE65628006A67F4 /* ColonyDrawer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		848797C11DE60BF000A98F29 /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		848797C31DE60C0400A98F29 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		848797C51DE60C4900A98F29 /* ColonyHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColonyHolder.swift; sourceTree = "<group>"; };
+		954F8B401DE65628006A67F4 /* ColonyDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColonyDrawer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				848797B41DE35F1000A98F29 /* Assets.xcassets */,
 				848797B61DE35F1000A98F29 /* LaunchScreen.storyboard */,
 				848797B91DE35F1000A98F29 /* Info.plist */,
+				954F8B401DE65628006A67F4 /* ColonyDrawer.swift */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				848797C41DE60C0400A98F29 /* EditViewController.swift in Sources */,
 				848797AC1DE35F1000A98F29 /* AppDelegate.swift in Sources */,
 				848797C01DE60BCC00A98F29 /* Colony.swift in Sources */,
+				954F8B411DE65628006A67F4 /* ColonyDrawer.swift in Sources */,
 				848797C21DE60BF000A98F29 /* Coordinate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +312,7 @@
 				848797BE1DE35F1000A98F29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

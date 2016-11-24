@@ -17,17 +17,17 @@ class DetailViewController: UIViewController {
         }
     }
 
-    @IBOutlet var colonyView: UIView!
     
-    @IBOutlet var coordinateText: UILabel!
+    @IBOutlet weak var colonyView: ColonyDrawer!
+    @IBOutlet weak var coordinateText: UILabel!
+    @IBOutlet weak var numEvolves: UISlider!
+    @IBOutlet weak var textNumEvolves: UILabel!
+    @IBOutlet weak var speed: UISlider!
+    @IBOutlet weak var textSpeed: UILabel!
+    @IBOutlet weak var wrapping: UISwitch!
+    @IBOutlet weak var detailLabel: UINavigationItem!
     
-    @IBOutlet var numEvolves: UISlider!
-    @IBOutlet var textNumEvolves: UILabel!
     
-    @IBOutlet var speed: UISlider!
-    @IBOutlet var textSpeed: UILabel!
-    
-    @IBOutlet var wrapping: UISwitch!
     
     var timer: NSTimer?
     
@@ -35,7 +35,7 @@ class DetailViewController: UIViewController {
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = self.detailItem {
+        if self.detailItem != nil {
             /*if let label = self.detailDescriptionLabel {
                 label.text = detail.description
             }*/
@@ -48,7 +48,7 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func speedSliderChanged(sender: UISlider) {
-        var value = Int(sender.value)
+        let value = Int(sender.value)
         textSpeed.text = "\(value)"
         startTimer(NSTimeInterval(value))
     }
@@ -56,7 +56,7 @@ class DetailViewController: UIViewController {
     func startTimer(interval: NSTimeInterval) {
         timer = NSTimer.scheduledTimerWithTimeInterval(interval,
                                                        target: self,
-                                                       selector: "onTick:",
+                                                       selector: #selector(DetailViewController.onTick(_:)),
                                                        userInfo: nil,
                                                        repeats: false)
     }
@@ -91,6 +91,8 @@ class DetailViewController: UIViewController {
         speed.value = 0
         textSpeed.text = String(Int(speed.value))
         wrapping.on = false
+        let maxY = self.detailLabel.titleView?.bounds.maxY
+        colonyView.maxY = maxY
     }
 
     override func didReceiveMemoryWarning() {
