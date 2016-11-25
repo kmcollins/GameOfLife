@@ -11,17 +11,28 @@ import UIKit
 
 class ColonyHolder {
     
-    var names = [String]()
+    //var names = [String]()
     var colonies = [Colony]()
     
     func addColony(colonyName: String) {
-        names.append(colonyName)
-        colonies.append(Colony())
+        //names.append(colonyName)
+        let colony = Colony()
+        colony.setName(colonyName)
+        colonies.append(colony)
     }
     
     func removeColony(index: Int) {
-        names.removeAtIndex(index)
+        //names.removeAtIndex(index)
         colonies.removeAtIndex(index)
+    }
+    
+    func indexOfName(colonyName: String) -> Int? {
+        for i in 0..<colonies.count {
+            if colonies[i].getName() == colonyName {
+                return i 
+            }
+        }
+        return nil
     }
     
     func setCellAliveInColony(index: Int, coordinate: Coordinate)-> Bool {
@@ -62,6 +73,7 @@ class ColonyHolder {
         // Insert colony in array at new location
         colonies.insert(movedCol, atIndex: toIndex)
         
+        /*
         // Get reference to object being moved so you can reinsert it
         let movedName = names[fromIndex]
         
@@ -69,7 +81,7 @@ class ColonyHolder {
         names.removeAtIndex(fromIndex)
         
         // Insert name in array at new location
-        names.insert(movedName, atIndex: toIndex)
+        names.insert(movedName, atIndex: toIndex)*/
     }
     
     /*
