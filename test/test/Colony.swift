@@ -12,11 +12,21 @@ class Colony: CustomStringConvertible{
     
     var cells: Set<Coordinate> = []
     
+    var name: String = ""
+    
     var genNumber: Int = 0
     
     let yMax = 80
     let xMax = 80
     var wrapping: Bool = false
+    
+    func setName(name: String) {
+        self.name = name
+    }
+    
+    func getName() -> String {
+        return name
+    }
     
     func setCellAlive(xCoor: Int, yCoor: Int) {
         if xCoor < xMax && xCoor >= 0 {

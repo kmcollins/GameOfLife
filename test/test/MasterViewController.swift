@@ -48,11 +48,21 @@ class MasterViewController: UITableViewController {
         colonyHolder.addColony(colName)
         
         // Figure out where that colony is in the array
+        if let index = colonyHolder.indexOfName(colName) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            // Insert this new row into the table
+            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+        
+        /*
+        // Figure out where that colony is in the array
         if let index = colonyHolder.names.indexOf(colName) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             // Insert this new row into the table
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
+ */
+        
     }
 
     // MARK: - Segues
@@ -83,7 +93,7 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         //let colony = colonyHolder.colonies[indexPath.row] as! Colony
-        cell.textLabel!.text = colonyHolder.names[indexPath.row]
+        cell.textLabel!.text = colonyHolder.colonies[indexPath.row].getName()
         return cell
     }
 
