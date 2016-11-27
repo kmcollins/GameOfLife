@@ -14,9 +14,9 @@ class DetailViewController: UIViewController {
         didSet {
             // Update the view.
             self.configureView()
+            navigationItem.title = detailItem?.getName()
         }
     }
-
     
     @IBOutlet weak var colonyView: ColonyDrawer!
     @IBOutlet weak var coordinateText: UILabel!
@@ -26,8 +26,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var textSpeed: UILabel!
     @IBOutlet weak var wrapping: UISwitch!
     @IBOutlet weak var detailLabel: UINavigationItem!
-    
-    
     
     var timer: NSTimer?
     
@@ -111,7 +109,13 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "EditColony" {
+            let editViewController = segue.destinationViewController as! EditViewController
+            editViewController.colony = detailItem!
+        }
+    }
 
 }
 
