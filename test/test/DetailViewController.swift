@@ -64,6 +64,7 @@ class DetailViewController: UIViewController {
     func onTick(timer:NSTimer){
         if currentEvolveNumber < Int(numEvolves!.value) {
             detailItem!.evolve() // NOTE, colony is a class, so this should update no matter what (reference, not value type)
+            
             currentEvolveNumber += 1
         }
     }
@@ -81,6 +82,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        let tapGR = UITapGestureRecognizer(target: self, action: "didTap:")
+        self.view.addGestureRecognizer(tapGR)
         numEvolves.minimumValue = 0
         numEvolves.maximumValue = 1000
         numEvolves.value = 0
@@ -90,11 +93,20 @@ class DetailViewController: UIViewController {
         speed.maximumValue = 5
         speed.value = 0
         textSpeed.text = String(Int(speed.value))
-        wrapping.on = false
-        let maxY = self.detailLabel.titleView?.bounds.maxY
-        colonyView.maxY = maxY
+        wrapping.on = false        
+        
     }
 
+    func didTap(tapGR: UITapGestureRecognizer) {
+        
+        let tapPoint = tapGR.locationInView(self.view)
+        
+        let shapeView = colonyView(origin: tapPoint)
+        
+        self.view.addSubview(shapeView)
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
