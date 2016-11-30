@@ -13,19 +13,18 @@ class EditViewController: UIViewController {
     var colony: Colony! {
         didSet {
             navigationItem.title = colony.getName()
+            
         }
     }
-    
     @IBOutlet var colonyName: UITextField!
-    
     @IBOutlet var blankButton: UIButton!
     @IBOutlet var basicButton: UIButton!
     @IBOutlet var ggButton: UIButton!
-    
     // This count is used to determine if user deselects
     // Daniel, let me know if you are confused by this ... it's kind of poor code
     var selectedBasicCount = 0
     var selectedBlankCount = 0
+    @IBOutlet weak var saveButton: UIButton!
     var selectedGGCount = 0
     
     @IBAction func blankTemplateSelected(sender: UIButton) {
@@ -81,12 +80,18 @@ class EditViewController: UIViewController {
             // Remove all cells from colony
             // Clear view screen completely
             colony.resetColony()
+            
         }
         else if basicButton.backgroundColor == UIColor.greenColor() {
             // Remove all cells from colony
             colony.resetColony()
             // Populate colony w/ the basic template
             // .....
+            colony.setCellAlive(29, yCoor: 29)
+            colony.setCellAlive(30, yCoor: 29)
+            colony.setCellAlive(31, yCoor: 29)
+            colony.setCellAlive(30, yCoor: 30)
+            
         }
         else if ggButton.backgroundColor == UIColor.greenColor() {
             // Remove all cells from colony

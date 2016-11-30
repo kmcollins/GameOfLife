@@ -123,7 +123,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="3gR-fm-3UA"/>
                     <connections>
-                        <outlet property="colonyView" destination="rCE-L0-dqV" id="Zbt-WP-yP1"/>
+                        <outlet property="colonyView" destination="rCE-L0-dqV" id="TN4-ok-a1i"/>
                         <outlet property="coordinateText" destination="v8s-6v-ont" id="5Up-9T-ItX"/>
                         <outlet property="detailLabel" destination="3gR-fm-3UA" id="LAe-GZ-qZJ"/>
                         <outlet property="numEvolves" destination="NWe-Ai-lKt" id="bI2-NR-2ci"/>
@@ -303,6 +303,7 @@
                         <outlet property="blankButton" destination="rW1-fV-dYC" id="mk2-uO-K80"/>
                         <outlet property="colonyName" destination="FEh-Mr-62F" id="ZPN-th-GO2"/>
                         <outlet property="ggButton" destination="bLr-c7-vMc" id="UdU-wQ-xdf"/>
+                        <outlet property="saveButton" destination="bDR-8D-uUI" id="Fh0-sM-Z35"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXc-bF-JIF" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
             // Update the view.
             self.configureView()
             navigationItem.title = detailItem?.getName()
+            self.displayColony()
         }
     }
     
@@ -30,7 +31,7 @@ class DetailViewController: UIViewController {
     var timer: NSTimer?
     
     var currentEvolveNumber: Int = 0
-
+    
     func configureView() {
         // Update the user interface for the detail item.
         if self.detailItem != nil {
@@ -62,7 +63,8 @@ class DetailViewController: UIViewController {
     func onTick(timer:NSTimer){
         if currentEvolveNumber < Int(numEvolves!.value) {
             detailItem!.evolve() // NOTE, colony is a class, so this should update no matter what (reference, not value type)
-            currentEvolveNumber += 1
+            self.displayColony()
+            currentEvolveNumber += 1            
         }
     }
     
@@ -77,7 +79,6 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         numEvolves.minimumValue = 0
         numEvolves.maximumValue = 1000
@@ -89,8 +90,6 @@ class DetailViewController: UIViewController {
         speed.value = 0
         textSpeed.text = String(Int(speed.value))
         wrapping.on = false
-        let maxY = self.detailLabel.titleView?.bounds.maxY
-        colonyView.maxY = maxY
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,7 +100,19 @@ class DetailViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "EditColony" {
             let editViewController = segue.destinationViewController as! EditViewController
-            editViewController.colony = detailItem!
+            let _ = editViewController.view
+            if let colony = detailItem {
+                editViewController.colony = colony
+            } else {
+                editViewController.saveButton.userInteractionEnabled = false
+            }
+        }
+    }
+    
+    func displayColony() {
+        if let colony = detailItem {
+            self.colonyView.currentColony = colony
+            self.colonyView.setNeedsDisplay()
         }
     }
 
