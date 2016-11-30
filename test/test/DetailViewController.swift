@@ -21,16 +21,23 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var colonyView: ColonyDrawer!
     @IBOutlet weak var coordinateText: UILabel!
-    @IBOutlet weak var numEvolves: UISlider!
-    @IBOutlet weak var textNumEvolves: UILabel!
     @IBOutlet weak var speed: UISlider!
     @IBOutlet weak var textSpeed: UILabel!
     @IBOutlet weak var wrapping: UISwitch!
     @IBOutlet weak var detailLabel: UINavigationItem!
     
+    
+    @IBOutlet var colonyNameTextField: UITextField!
+    
     var timer: NSTimer?
     
-    var currentEvolveNumber: Int = 0
+    //var currentEvolveNumber: Int = 0
+    
+    var evolving = false
+    
+    @IBAction func textChanged(sender: UITextField) {
+        detailItem?.setName(sender.text!)
+    }
     
     func configureView() {
         // Update the user interface for the detail item.
@@ -41,15 +48,30 @@ class DetailViewController: UIViewController {
         }
     }
     
-    @IBAction func evolveSliderChanged(sender: UISlider) {
-        textNumEvolves.text = String(Int(sender.value))
-        currentEvolveNumber = 0
+    @IBAction func play(sender: AnyObject) {
+        evolving = true
+        print(speed.value)
+        startTimer(NSTimeInterval(5/speed.value))
+    }
+    
+    func stopTimer() {
+        if let t = timer {
+            t.invalidate()
+        }
     }
     
     @IBAction func speedSliderChanged(sender: UISlider) {
         let value = Int(sender.value)
         textSpeed.text = "\(value)"
-        startTimer(NSTimeInterval(value))
+        if value == 0 {
+            stopTimer()
+            evolving = false
+        } else {
+            if evolving {
+                stopTimer()
+                startTimer(NSTimeInterval(5/sender.value))
+            }
+        }
     }
     
     func startTimer(interval: NSTimeInterval) {
@@ -57,15 +79,12 @@ class DetailViewController: UIViewController {
                                                        target: self,
                                                        selector: #selector(DetailViewController.onTick(_:)),
                                                        userInfo: nil,
-                                                       repeats: false)
+                                                       repeats: true)
     }
     
     func onTick(timer:NSTimer){
-        if currentEvolveNumber < Int(numEvolves!.value) {
-            detailItem!.evolve() // NOTE, colony is a class, so this should update no matter what (reference, not value type)
-            self.displayColony()
-            currentEvolveNumber += 1            
-        }
+        detailItem!.evolve()
+        self.displayColony()
     }
     
     
@@ -80,13 +99,9 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
-        numEvolves.minimumValue = 0
-        numEvolves.maximumValue = 1000
-        numEvolves.value = 0
-        textNumEvolves.text = String(Int(numEvolves.value))
         // Speed = # of evolutions per second
         speed.minimumValue = 0
-        speed.maximumValue = 5
+        speed.maximumValue = 50
         speed.value = 0
         textSpeed.text = String(Int(speed.value))
         wrapping.on = false
@@ -95,18 +110,6 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "EditColony" {
-            let editViewController = segue.destinationViewController as! EditViewController
-            let _ = editViewController.view
-            if let colony = detailItem {
-                editViewController.colony = colony
-            } else {
-                editViewController.saveButton.userInteractionEnabled = false
-            }
-        }
     }
     
     func displayColony() {
