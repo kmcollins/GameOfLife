@@ -11,15 +11,22 @@ import UIKit
 class ColonyDrawer: UIView {
     
     var currentColony: Colony?
+    var onTouching: Bool?
+    var makingAlive: Bool?
+    
+    var sideSize: CGFloat {
+        let height = self.bounds.height/60
+        let width = self.bounds.width/60
+        if height >= width {
+            return width
+        }
+        return height
+    }
     
     override func drawRect(rect: CGRect) {
-        let width = self.bounds.width/60
-        let height = self.bounds.height/60
         for x in 0..<60 {
             for y in 0..<60 {
-                let currentMinX = self.bounds.minX + CGFloat(x)*width
-                let currentMinY = self.bounds.minY + CGFloat(y)*height
-                let rectangle = CGRectMake(currentMinX, currentMinY, width, height)
+                let rectangle = colonyCoordinateToViewCoordinate(x, y: y)
                 let path = UIBezierPath(rect: rectangle)
                 UIColor.blackColor().setStroke()
                 path.lineWidth = 1
@@ -32,6 +39,64 @@ class ColonyDrawer: UIView {
                 }
             }
         }
+    }
+    
+    func colonyCoordinateToViewCoordinate(x: Int, y: Int)-> CGRect {
+        return CGRectMake(self.bounds.minX+CGFloat(x)*self.sideSize, self.bounds.minY+CGFloat(y)*self.sideSize, self.sideSize, self.sideSize)
+    }
+    
+    func viewCoordinateToColonyCoordinate(point: CGPoint)->Coordinate {
+        return Coordinate(x: Int(point.x/self.sideSize), y: Int(point.y/self.sideSize))
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.locationInView(self)
+        let cell = viewCoordinateToColonyCoordinate(location)
+        if currentColony != nil {
+            self.onTouching = true
+            if currentColony!.cells.contains(cell) {
+                self.makingAlive = false
+                currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+            } else {
+                self.makingAlive = true
+                currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+            }
+        }
+        setNeedsDisplay()
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.locationInView(self)
+        let cell = viewCoordinateToColonyCoordinate(location)
+        if currentColony != nil {
+            if (self.makingAlive != nil) {
+                if self.makingAlive! {
+                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+                } else {
+                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+                }
+            }
+        }
+        setNeedsDisplay()
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.locationInView(self)
+        let cell = viewCoordinateToColonyCoordinate(location)
+        if currentColony != nil {
+            self.onTouching = false
+            if (self.makingAlive != nil) {
+                if self.makingAlive! {
+                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+                } else {
+                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+                }
+            }
+        }
+        setNeedsDisplay()
     }
 }
 
