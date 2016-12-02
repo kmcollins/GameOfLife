@@ -140,12 +140,8 @@ class Colony: CustomStringConvertible{
         }
     }
     
-    func useWrapping(){
-        self.wrapping = true
-    }
-    
-    func dontUseWrapping(){
-        self.wrapping = false
+    func setWrapping(shoudWrap: Bool) {
+        self.wrapping = shoudWrap
     }
     
     var description: String {

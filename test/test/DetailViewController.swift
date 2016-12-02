@@ -118,16 +118,16 @@ class DetailViewController: UIViewController, UIPickerViewDelegate {
     }
     
     func onTick(timer:NSTimer){
-        detailItem!.evolve()
-        self.displayColony()
+        if detailItem != nil {
+            detailItem!.evolve()
+            self.displayColony()
+        }
     }
     
     
     @IBAction func changedWrapping(sender: UISwitch) {
-        if sender.on {
-            detailItem!.useWrapping()
-        } else {
-            detailItem!.dontUseWrapping()
+        if detailItem != nil {
+            detailItem!.setWrapping(sender.on)
         }
     }
 
