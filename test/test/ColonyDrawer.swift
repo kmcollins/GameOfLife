@@ -8,72 +8,95 @@
 
 import UIKit
 
-struct Line {
-    var begin = CGPoint.zero
-    var end = CGPoint.zero
-}
-
 class ColonyDrawer: UIView {
     
-    var minX,minY,maxX,maxY,height,width: CGFloat?
+    var currentColony: Colony?
+    var onTouching: Bool?
+    var makingAlive: Bool?
     
-    var viewController: DetailViewController?
-    
-    func strokeLine(line: Line) {
-        let path = UIBezierPath()
-        path.lineWidth = 3
-        path.lineCapStyle = CGLineCap.Round
-        path.moveToPoint(line.begin)
-        path.addLineToPoint(line.end)
-        path.stroke()
-    }
-    
-    func makeTable() {
-        let ctx = UIGraphicsGetCurrentContext()
-        for x in 0..<60 {
-            for y in 0..<60 {
-                let currentMinX = self.minX! + CGFloat(x)*self.width!
-                let currentMinY = self.minY! + CGFloat(y)*self.height!
-                let rectangle = CGRectMake(currentMinX, currentMinY, self.width!, self.height!)
-                CGContextBeginPath(ctx)
-                CGContextAddRect(ctx, rectangle)
-                CGContextSetLineWidth(ctx, 1)
-                CGContextSetStrokeColorWithColor(ctx, UIColor.blackColor().CGColor)
-                CGContextStrokePath(ctx)
-            }
+    var sideSize: CGFloat {
+        let height = self.bounds.height/60
+        let width = self.bounds.width/60
+        if height >= width {
+            return width
         }
-    }
-    
-    func findBounds() {
-        
-        minX = self.bounds.minX
-        minY = self.bounds.minY
-        maxX = self.bounds.maxX
-        maxY = self.bounds.maxY
-        width = CGFloat(Int(self.bounds.width)/60)
-        height = CGFloat(Int(self.bounds.height)/60)
-    }
-    
-    func drawRectangle() {
-        findBounds()
-        let ctx = UIGraphicsGetCurrentContext()
-        for x in 0..<60 {
-            for y in 0..<60 {
-                let currentMinX = self.minX! + CGFloat(x)*self.width!
-                let currentMinY = self.minY! + CGFloat(y)*self.height!
-                let rectangle = CGRectMake(currentMinX, currentMinY, self.width!, self.height!)
-                CGContextBeginPath(ctx)
-                CGContextAddRect(ctx, rectangle)
-                CGContextSetLineWidth(ctx, 1)
-                CGContextSetStrokeColorWithColor(ctx, UIColor.blackColor().CGColor)
-                CGContextStrokePath(ctx)
-            }
-        }
+        return height
     }
     
     override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        drawRectangle()
+        for x in 0..<60 {
+            for y in 0..<60 {
+                let rectangle = colonyCoordinateToViewCoordinate(x, y: y)
+                let path = UIBezierPath(rect: rectangle)
+                UIColor.blackColor().setStroke()
+                path.lineWidth = 1
+                path.stroke()
+                if self.currentColony != nil {
+                    if self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
+                        UIColor.blackColor().setFill()
+                        path.fill()
+                    }
+                }
+            }
+        }
+    }
+    
+    func colonyCoordinateToViewCoordinate(x: Int, y: Int)-> CGRect {
+        return CGRectMake(self.bounds.minX+CGFloat(x)*self.sideSize, self.bounds.minY+CGFloat(y)*self.sideSize, self.sideSize, self.sideSize)
+    }
+    
+    func viewCoordinateToColonyCoordinate(point: CGPoint)->Coordinate {
+        return Coordinate(x: Int(point.x/self.sideSize), y: Int(point.y/self.sideSize))
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.locationInView(self)
+        let cell = viewCoordinateToColonyCoordinate(location)
+        if currentColony != nil {
+            self.onTouching = true
+            if currentColony!.cells.contains(cell) {
+                self.makingAlive = false
+                currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+            } else {
+                self.makingAlive = true
+                currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+            }
+        }
+        setNeedsDisplay()
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.locationInView(self)
+        let cell = viewCoordinateToColonyCoordinate(location)
+        if currentColony != nil {
+            if (self.makingAlive != nil) {
+                if self.makingAlive! {
+                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+                } else {
+                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+                }
+            }
+        }
+        setNeedsDisplay()
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.locationInView(self)
+        let cell = viewCoordinateToColonyCoordinate(location)
+        if currentColony != nil {
+            self.onTouching = false
+            if (self.makingAlive != nil) {
+                if self.makingAlive! {
+                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+                } else {
+                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+                }
+            }
+        }
+        setNeedsDisplay()
     }
 }
 
