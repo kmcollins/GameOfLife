@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8407E82B1DF3178D000D4EBE /* TemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407E82A1DF3178D000D4EBE /* TemplateData.swift */; };
 		848797AC1DE35F1000A98F29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848797AB1DE35F1000A98F29 /* AppDelegate.swift */; };
 		848797AE1DE35F1000A98F29 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848797AD1DE35F1000A98F29 /* MasterViewController.swift */; };
 		848797B01DE35F1000A98F29 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848797AF1DE35F1000A98F29 /* DetailViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8407E82A1DF3178D000D4EBE /* TemplateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateData.swift; sourceTree = "<group>"; };
 		848797A81DE35F1000A98F29 /* GameOfLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848797AB1DE35F1000A98F29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		848797AD1DE35F1000A98F29 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				848797BF1DE60BCC00A98F29 /* Colony.swift */,
 				848797C11DE60BF000A98F29 /* Coordinate.swift */,
 				848797AF1DE35F1000A98F29 /* DetailViewController.swift */,
+				8407E82A1DF3178D000D4EBE /* TemplateData.swift */,
 				848797C51DE60C4900A98F29 /* ColonyHolder.swift */,
 				848797B11DE35F1000A98F29 /* Main.storyboard */,
 				848797B41DE35F1000A98F29 /* Assets.xcassets */,
@@ -153,6 +156,7 @@
 				848797B01DE35F1000A98F29 /* DetailViewController.swift in Sources */,
 				848797C61DE60C4900A98F29 /* ColonyHolder.swift in Sources */,
 				848797AE1DE35F1000A98F29 /* MasterViewController.swift in Sources */,
+				8407E82B1DF3178D000D4EBE /* TemplateData.swift in Sources */,
 				848797AC1DE35F1000A98F29 /* AppDelegate.swift in Sources */,
 				848797C01DE60BCC00A98F29 /* Colony.swift in Sources */,
 				954F8B411DE65628006A67F4 /* ColonyDrawer.swift in Sources */,

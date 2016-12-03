@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var templateData: TemplateData?
+    
     var detailItem: Colony? {
         didSet {
             // Update the view.
@@ -17,7 +19,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             navigationItem.title = detailItem?.getName()
             let originalCells = detailItem?.getCells()
             if originalCells != Set() {
-                templateCells[0] = originalCells!
+                //templateCells[0] = originalCells!
+                templateData!.setCurrentCells(originalCells!)
             }
             colonyNameTextField.text = detailItem?.getName()
             //colonyNameTextField.textColor = UIColor.lightGrayColor()
@@ -38,8 +41,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     
     var masterController: MasterViewController?
     
-    var templates = ["Current", "Blank", "Basic", "Glider Gun"]
-    var templateCells = [Set(), Set(), Set([Coordinate(x:30, y:30), Coordinate(x: 29, y: 29), Coordinate(x: 30, y: 29), Coordinate(x: 31, y: 29)]), Set()]
+    /*var templates = ["Current", "Blank", "Basic", "Glider Gun"]
+    var templateCells = [Set(), Set(), Set([Coordinate(x:30, y:30), Coordinate(x: 29, y: 29), Coordinate(x: 30, y: 29), Coordinate(x: 31, y: 29)]), Set()]*/
     
     @IBAction func selectTemplate(sender: AnyObject) {
         let makeVisible = templatePicker.hidden
@@ -52,33 +55,37 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         }
     }
     
-    // Returns the number of 'columns' to display.
-    func numberOfComponentsInPickerView(pickerView: UIPickerView!) -> Int{
+    // Returns the number of 'columns' to display...UIPickerView!
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
         return 1
     }
     
-    // Returns the # of rows in each component..
-    func pickerView(pickerView: UIPickerView!, numberOfRowsInComponent component: Int) -> Int{
-        return templates.count
+    // Returns the # of rows in each component.. ..UIPickerView!
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        //return templates.count
+        return templateData!.getCount()
     }
     
     // The data to return for the row and component (column) that's being passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return templates[row]
+        return templateData!.nameForRow(row)
+        //return templates[row]
     }
     
     // Catpure the picker view selection
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
-        let newCells = templateCells[row]
+        //let newCells = templateCells[row]
+        let newCells = templateData!.cellsForRow(row)
         detailItem!.replaceCellsWith(newCells)
         self.displayColony()
     }
     
     @IBAction func addTemplate(sender: AnyObject) {
-        templates.append(detailItem!.getName())
-        templateCells.append(detailItem!.getCells())
+        /*templates.append(detailItem!.getName())
+        templateCells.append(detailItem!.getCells())*/
+        templateData!.addTemplate(detailItem!.getName(), cells: detailItem!.getCells())
         templatePicker.reloadAllComponents()
     }
     

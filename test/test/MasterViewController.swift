@@ -14,6 +14,7 @@ class MasterViewController: UITableViewController {
     //var objects = [AnyObject]()
     
     var colonyHolder = ColonyHolder()
+    var templateData = TemplateData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,7 @@ class MasterViewController: UITableViewController {
                 let object = colonyHolder.colonies[indexPath.row] 
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 let _ = controller.view
+                controller.templateData = self.templateData
                 controller.detailItem = object
                 controller.masterController = self
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
