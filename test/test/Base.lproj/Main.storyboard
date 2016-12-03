@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -54,9 +54,6 @@
                                         <rect key="frame" x="103" y="0.0" width="25" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="textChanged:" destination="JEX-9P-axG" eventType="editingChanged" id="LOn-7e-b4H"/>
-                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdh-Jz-wIg">
                                         <rect key="frame" x="128" y="0.0" width="111" height="21"/>
@@ -128,7 +125,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="3gR-fm-3UA"/>
                     <connections>
-                        <outlet property="colonyNameTextField" destination="bch-4f-6ld" id="Sg0-wG-fW9"/>
+                        <outlet property="colonyNameTextField" destination="bch-4f-6ld" id="p9a-fz-H9y"/>
                         <outlet property="colonyView" destination="rCE-L0-dqV" id="TN4-ok-a1i"/>
                         <outlet property="coordinateText" destination="v8s-6v-ont" id="5Up-9T-ItX"/>
                         <outlet property="detailLabel" destination="3gR-fm-3UA" id="LAe-GZ-qZJ"/>

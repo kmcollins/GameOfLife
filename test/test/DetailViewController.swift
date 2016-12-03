@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var detailItem: Colony? {
         didSet {
@@ -19,10 +19,13 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             if originalCells != Set() {
                 templateCells[0] = originalCells!
             }
+            colonyNameTextField.text = detailItem?.getName()
+            //colonyNameTextField.textColor = UIColor.lightGrayColor()
             self.displayColony()
         }
     }
     
+    @IBOutlet var colonyNameTextField: UITextField!
     @IBOutlet weak var colonyView: ColonyDrawer!
     @IBOutlet weak var coordinateText: UILabel!
     @IBOutlet weak var speed: UISlider!
@@ -68,11 +71,8 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         // The parameter named row and component represents what was selected.
         let newCells = templateCells[row]
         detailItem!.replaceCellsWith(newCells)
-        print("in change: \(templateCells[0])")
         self.displayColony()
     }
-    
-    @IBOutlet var colonyNameTextField: UITextField!
     
     var timer: NSTimer?
     
@@ -80,8 +80,16 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var evolving = false
     
-    @IBAction func textChanged(sender: UITextField) {
-        detailItem?.setName(sender.text!)
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        saveText(textField.text!)
+        colonyNameTextField.resignFirstResponder()
+        return true
+    }
+    
+    func saveText(text: String) {
+        detailItem?.setName(text)
+        navigationItem.title = detailItem?.getName()
+        print(detailItem!.getName())
     }
     
     func configureView() {
@@ -153,6 +161,8 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         self.templatePicker.delegate = self
         self.templatePicker.dataSource = self
+        
+        self.colonyNameTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
