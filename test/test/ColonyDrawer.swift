@@ -14,6 +14,8 @@ class ColonyDrawer: UIView {
     var onTouching: Bool?
     var makingAlive: Bool?
     
+    var secondColony: Colony?
+    
     var sideSize: CGFloat {
         let height = self.bounds.height/60
         let width = self.bounds.width/60
@@ -32,10 +34,25 @@ class ColonyDrawer: UIView {
                 path.lineWidth = 0.5
                 path.stroke()
                 if self.currentColony != nil {
-                    if self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
-                        UIColor.blackColor().setFill()
+                    if let col2 = self.secondColony {
+                        if col2.cells.contains(Coordinate(x: x, y: y)) && self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
+                            UIColor.purpleColor().setFill()
+                            path.fill()
+                        }
+                        else if col2.cells.contains(Coordinate(x: x, y: y)) {
+                            UIColor.redColor().setFill()
+                            path.fill()
+                        }
+                        else if self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
+                            UIColor.blueColor().setFill()
+                            path.fill()
+                        }
+                    }
+                    else if self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
+                        UIColor.blueColor().setFill()
                         path.fill()
                     }
+                    
                 }
             }
         }
