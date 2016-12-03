@@ -55,6 +55,15 @@ class Colony: CustomStringConvertible{
         return false
     }
     
+    func replaceCellsWith(newCells: Set<Coordinate>) {
+        resetColony()
+        cells = newCells
+    }
+    
+    func getCells() -> Set<Coordinate> {
+        return cells
+    }
+    
     func wrap(x: Int, y: Int)-> Coordinate { // a function that converts all cells that exceed the borders to be inside the opposite border(wrapping)
         var newX = x
         var newY = y

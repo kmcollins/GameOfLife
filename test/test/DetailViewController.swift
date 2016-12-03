@@ -7,15 +7,18 @@
 //
 
 import UIKit
-//import Framework
 
-class DetailViewController: UIViewController, UIPickerViewDelegate {
-
+class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     var detailItem: Colony? {
         didSet {
             // Update the view.
             self.configureView()
             navigationItem.title = detailItem?.getName()
+            let originalCells = detailItem?.getCells()
+            if originalCells != Set() {
+                templateCells[0] = originalCells!
+            }
             self.displayColony()
         }
     }
@@ -27,40 +30,48 @@ class DetailViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet weak var wrapping: UISwitch!
     @IBOutlet weak var detailLabel: UINavigationItem!
     
-    @IBOutlet var templatePicker: UIPickerView! //= UIPickerView()
+    @IBOutlet var templatePicker: UIPickerView!
     @IBOutlet var templateButton: UIButton!
     
-    /*var templates: [String, Set<Coordinate] = ["": detailItem!.cells,
-    "Blank": Set(),
-    "Basic": Set([Coordinate(x:30, y:30), Coordinate(x: 29, y: 29), Coordinate(x: 30, y: 29), Coordinate(x: 30, y: 29)]),
-    "Glider Gun": Set()
-    ]*/
+    var templates = ["Current", "Blank", "Basic", "Glider Gun"]
+    var templateCells = [Set(), Set(), Set([Coordinate(x:30, y:30), Coordinate(x: 29, y: 29), Coordinate(x: 30, y: 29), Coordinate(x: 31, y: 29)]), Set()]
     
     @IBAction func selectTemplate(sender: AnyObject) {
-        //let visibilty = templatePicker.hidden
-        templatePicker.hidden = false
+        let makeVisible = templatePicker.hidden
+        if makeVisible {
+            templatePicker.hidden = false
+            templateButton.setTitle("Done", forState: .Normal)
+        } else {
+            templatePicker.hidden = true
+            templateButton.setTitle("Select Template", forState: .Normal)
+        }
     }
     
-    // returns the number of 'columns' to display.
+    // Returns the number of 'columns' to display.
     func numberOfComponentsInPickerView(pickerView: UIPickerView!) -> Int{
         return 1
     }
     
-    // returns the # of rows in each component..
-  /*  func pickerView(pickerView: UIPickerView!, numberOfRowsInComponent component: Int) -> Int{
+    // Returns the # of rows in each component..
+    func pickerView(pickerView: UIPickerView!, numberOfRowsInComponent component: Int) -> Int{
         return templates.count
     }
     
-    func pickerView(pickerView: UIPickerView!, titleForRow row: Int, forComponent component: Int) -> String! {
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return templates[row]
     }
     
-    func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int)
-    {
-        //textfieldBizCat.text = bizCat[row]
-        templatePicker.hidden = true;
+    // Catpure the picker view selection
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
+        let newCells = templateCells[row]
+        detailItem!.replaceCellsWith(newCells)
+        print("in change: \(templateCells[0])")
+        self.displayColony()
     }
-    */
+    
     @IBOutlet var colonyNameTextField: UITextField!
     
     var timer: NSTimer?
@@ -74,18 +85,16 @@ class DetailViewController: UIViewController, UIPickerViewDelegate {
     }
     
     func configureView() {
-        templatePicker.hidden = true
         // Update the user interface for the detail item.
         if self.detailItem != nil {
             /*if let label = self.detailDescriptionLabel {
-                label.text = detail.description
-            }*/
+             label.text = detail.description
+             }*/
         }
     }
     
     @IBAction func play(sender: AnyObject) {
         evolving = true
-        print(speed.value)
         startTimer(NSTimeInterval(5/speed.value))
     }
     
@@ -130,7 +139,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate {
             detailItem!.setWrapping(sender.on)
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
@@ -141,8 +150,11 @@ class DetailViewController: UIViewController, UIPickerViewDelegate {
         textSpeed.text = String(Int(speed.value))
         wrapping.on = false
         templatePicker.hidden = true
+        
+        self.templatePicker.delegate = self
+        self.templatePicker.dataSource = self
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -154,6 +166,6 @@ class DetailViewController: UIViewController, UIPickerViewDelegate {
             self.colonyView.setNeedsDisplay()
         }
     }
-
+    
 }
 
