@@ -76,6 +76,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         self.displayColony()
     }
     
+    @IBAction func addTemplate(sender: AnyObject) {
+        templates.append(detailItem!.getName())
+        templateCells.append(detailItem!.getCells())
+        templatePicker.reloadAllComponents()
+    }
+    
     var timer: NSTimer?
     
     //var currentEvolveNumber: Int = 0
