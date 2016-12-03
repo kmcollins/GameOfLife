@@ -36,6 +36,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBOutlet var templatePicker: UIPickerView!
     @IBOutlet var templateButton: UIButton!
     
+    var masterController: MasterViewController?
+    
     var templates = ["Current", "Blank", "Basic", "Glider Gun"]
     var templateCells = [Set(), Set(), Set([Coordinate(x:30, y:30), Coordinate(x: 29, y: 29), Coordinate(x: 30, y: 29), Coordinate(x: 31, y: 29)]), Set()]
     
@@ -89,7 +91,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     func saveText(text: String) {
         detailItem?.setName(text)
         navigationItem.title = detailItem?.getName()
-        print(detailItem!.getName())
+        masterController?.tableView.reloadData()
     }
     
     func configureView() {
