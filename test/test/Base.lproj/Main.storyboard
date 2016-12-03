@@ -33,40 +33,40 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZSZ-gh-m3p">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="523"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="422"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rCE-L0-dqV" customClass="ColonyDrawer" customModule="GameOfLife" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="523"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="422"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rwh-XE-KYG">
-                                <rect key="frame" x="0.0" y="531" width="600" height="30"/>
+                                <rect key="frame" x="0.0" y="430" width="600" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Colony Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihF-rJ-mwh">
-                                        <rect key="frame" x="0.0" y="0.0" width="103" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="103" height="65"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bch-4f-6ld">
-                                        <rect key="frame" x="103" y="0.0" width="25" height="30"/>
+                                        <rect key="frame" x="103" y="0.0" width="25" height="65"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdh-Jz-wIg">
-                                        <rect key="frame" x="128" y="0.0" width="111" height="30"/>
+                                        <rect key="frame" x="128" y="0.0" width="111" height="65"/>
                                         <state key="normal" title="Select Template"/>
                                         <connections>
                                             <action selector="selectTemplate:" destination="JEX-9P-axG" eventType="touchUpInside" id="o4B-rx-RW4"/>
                                         </connections>
                                     </button>
                                     <pickerView contentMode="scaleToFill" horizontalHuggingPriority="249" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9F-Ko-fcT">
-                                        <rect key="frame" x="239" y="0.0" width="266" height="30"/>
+                                        <rect key="frame" x="239" y="0.0" width="266" height="65"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1H-va-kA7">
-                                        <rect key="frame" x="505" y="0.0" width="95" height="30"/>
+                                        <rect key="frame" x="505" y="0.0" width="95" height="65"/>
                                         <state key="normal" title="Add Template"/>
                                         <connections>
                                             <action selector="addTemplate:" destination="JEX-9P-axG" eventType="touchUpInside" id="UrQ-b1-vHm"/>
@@ -75,22 +75,22 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oID-WU-bm2">
-                                <rect key="frame" x="0.0" y="569" width="600" height="2"/>
+                                <rect key="frame" x="0.0" y="503" width="600" height="21"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" text="Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-vD-XJM">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="2"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ezn-aC-73s">
-                                        <rect key="frame" x="56" y="0.0" width="527" height="3"/>
+                                        <rect key="frame" x="56" y="0.0" width="527" height="22"/>
                                         <connections>
                                             <action selector="speedSliderChanged:" destination="JEX-9P-axG" eventType="valueChanged" id="9cl-v6-K5z"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2B-De-kZF">
-                                        <rect key="frame" x="589" y="0.0" width="11" height="2"/>
+                                        <rect key="frame" x="589" y="0.0" width="11" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -98,33 +98,49 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WLv-fK-AP4">
-                                <rect key="frame" x="0.0" y="579" width="600" height="21"/>
+                                <rect key="frame" x="0.0" y="532" width="600" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" misplaced="YES" text="Wrapping" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9PR-92-WXI">
-                                        <rect key="frame" x="0.0" y="0.0" width="464" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="464" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfJ-g5-rvm">
-                                        <rect key="frame" x="472" y="0.0" width="30" height="21"/>
+                                        <rect key="frame" x="472" y="0.0" width="30" height="30"/>
                                         <state key="normal" title="Play"/>
                                         <connections>
                                             <action selector="play:" destination="JEX-9P-axG" eventType="touchUpInside" id="ZwF-gt-ntD"/>
                                         </connections>
                                     </button>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9TZ-pO-tik">
-                                        <rect key="frame" x="510" y="0.0" width="51" height="21"/>
+                                        <rect key="frame" x="510" y="0.0" width="51" height="30"/>
                                         <connections>
                                             <action selector="changedWrapping:" destination="JEX-9P-axG" eventType="valueChanged" id="W3P-yP-xTW"/>
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" misplaced="YES" text="(x,y)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8s-6v-ont">
-                                        <rect key="frame" x="567" y="0.0" width="33" height="21"/>
+                                        <rect key="frame" x="567" y="0.0" width="33" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPr-uu-A37">
+                                <rect key="frame" x="0.0" y="570" width="600" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Add a Colony to Window" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXT-JH-tn3">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Xf-Ge-SMQ">
+                                        <rect key="frame" x="188" y="0.0" width="412" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -132,6 +148,8 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="3gR-fm-3UA"/>
                     <connections>
+                        <outlet property="addColStack" destination="xPr-uu-A37" id="XlD-q5-FgD"/>
+                        <outlet property="addColonyTextField" destination="9Xf-Ge-SMQ" id="IIB-ky-i8v"/>
                         <outlet property="colonyNameTextField" destination="bch-4f-6ld" id="p9a-fz-H9y"/>
                         <outlet property="colonyView" destination="rCE-L0-dqV" id="TN4-ok-a1i"/>
                         <outlet property="coordinateText" destination="v8s-6v-ont" id="5Up-9T-ItX"/>

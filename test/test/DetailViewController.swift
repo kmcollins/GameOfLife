@@ -36,8 +36,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBOutlet weak var wrapping: UISwitch!
     @IBOutlet weak var detailLabel: UINavigationItem!
     
+    @IBOutlet var addColStack: UIStackView!
+    @IBOutlet var addColonyTextField: UITextField!
+    
     @IBOutlet var templatePicker: UIPickerView!
     @IBOutlet var templateButton: UIButton!
+    
+    var secondColony: Colony?
     
     var masterController: MasterViewController?
     
@@ -96,8 +101,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     var evolving = false
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        saveText(textField.text!)
-        colonyNameTextField.resignFirstResponder()
+        if textField == colonyNameTextField {
+            saveText(textField.text!)
+            colonyNameTextField.resignFirstResponder()
+        }
+        else if textField == addColonyTextField {
+            addToScreen(textField.text)
+            addColonyTextField.resignFirstResponder()
+        }
         return true
     }
     
@@ -105,6 +116,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         detailItem?.setName(text)
         navigationItem.title = detailItem?.getName()
         masterController?.tableView.reloadData()
+    }
+    
+    func addToScreen(colName: String?) {
+        if let name = colName {
+            if let index = masterController?.colonyHolder.indexOfName(name) {
+                let col2 = masterController?.colonyHolder.colonies[index]
+                secondColony = col2
+                colonyView.secondColony = self.secondColony
+                addColStack.hidden = true // this way users can add only one colony
+                self.displayColony()
+            }
+        }
     }
     
     func configureView() {
@@ -150,9 +173,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     }
     
     func onTick(timer:NSTimer){
-        if detailItem != nil {
-            detailItem!.evolve()
-            self.displayColony()
+        if let col1 = detailItem {
+            if let col2 = secondColony {
+                col1.evolve()
+                col2.evolve()
+                self.displayColony()
+            } else {
+                col1.evolve()
+                self.displayColony()
+            }
         }
     }
     
@@ -178,6 +207,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         self.templatePicker.dataSource = self
         
         self.colonyNameTextField.delegate = self
+        self.addColonyTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
