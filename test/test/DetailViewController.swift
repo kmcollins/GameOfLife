@@ -41,6 +41,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBOutlet var templateButton: UIButton!
     @IBOutlet weak var colonyWidthTextField: UITextField!
     @IBOutlet weak var colonyHeightTextField: UITextField!
+    @IBOutlet weak var editNameButton: UIButton!
+    @IBOutlet weak var addColonyButton: UIButton!
+    @IBOutlet weak var editNameStack: UIStackView!
     
     var secondColony: Colony?
     
@@ -127,8 +130,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             if let index = masterController?.colonyHolder.indexOfName(name) {
                 let col2 = masterController?.colonyHolder.colonies[index]
                 secondColony = col2
-                colonyView.secondColony = self.secondColony
-                addColStack.hidden = true // this way users can add only one colony
+                colonyView.secondColony = self.secondColony                
                 self.displayColony()
             }
         }
@@ -167,6 +169,30 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             }
         }
     }
+    
+    @IBAction func editNameButtonPressed(sender: AnyObject) {
+        let hidden = self.editNameStack.hidden
+        if hidden {
+            editNameButton.setTitle("done editing", forState: .Normal)
+            self.editNameStack.hidden = false
+        } else {
+            editNameButton.setTitle("Edit Name/Templates", forState: .Normal)
+            self.editNameStack.hidden = true
+        }
+    }
+    
+    
+    @IBAction func addColonyResizeButtonPressed(sender: AnyObject) {
+        let hidden = self.addColStack.hidden
+        if hidden {
+            addColonyButton.setTitle("done adding/resizing", forState: .Normal)
+            self.addColStack.hidden = false
+        } else {
+            addColonyButton.setTitle("Add Colony/Resize", forState: .Normal)
+            self.addColStack.hidden = true
+        }
+    }
+    
     
     func startTimer(interval: NSTimeInterval) {
         timer = NSTimer.scheduledTimerWithTimeInterval(interval,
