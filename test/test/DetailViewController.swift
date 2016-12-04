@@ -214,6 +214,26 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         self.addColonyTextField.delegate = self
     }
     
+    
+    @IBAction func resizeButtonPressed(sender: AnyObject) {
+        var colonyHeight = 60
+        var colonyWidth = 60
+        if let newHeightString = self.colonyHeightTextField.text {
+            if let newHeight = Int(newHeightString) {
+                colonyHeight = newHeight
+            }
+        }
+        if let newWidthString = self.colonyWidthTextField.text {
+            if let newWidth = Int(newWidthString) {
+                colonyWidth = newWidth
+            }
+        }
+        self.detailItem!.resetColony()
+        self.detailItem!.xMax = colonyWidth
+        self.detailItem!.yMax = colonyHeight
+        self.displayColony()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

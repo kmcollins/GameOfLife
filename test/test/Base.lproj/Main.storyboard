@@ -141,18 +141,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pbw-QQ-kks">
-                                                <rect key="frame" x="83" y="0.0" width="348" height="30"/>
+                                                <rect key="frame" x="83" y="0.0" width="307" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Colony size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2W9-o5-fop">
-                                                <rect key="frame" x="431" y="0.0" width="93" height="30"/>
+                                                <rect key="frame" x="390" y="0.0" width="93" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="60" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4kK-6Z-ZIN">
-                                                <rect key="frame" x="524" y="0.0" width="39" height="30"/>
+                                                <rect key="frame" x="483" y="0.0" width="39" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="39" id="GqR-MX-Kgp"/>
                                                 </constraints>
@@ -160,13 +160,23 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="60" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncj-Iq-8X2">
-                                                <rect key="frame" x="563" y="0.0" width="39" height="30"/>
+                                                <rect key="frame" x="522" y="0.0" width="39" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="39" id="kbI-dE-NAa"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAx-nU-sok">
+                                                <rect key="frame" x="561" y="0.0" width="41" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="41" id="u1X-5Q-MGP"/>
+                                                </constraints>
+                                                <state key="normal" title="resize"/>
+                                                <connections>
+                                                    <action selector="resizeButtonPressed:" destination="JEX-9P-axG" eventType="touchUpInside" id="Stm-WJ-bpU"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>

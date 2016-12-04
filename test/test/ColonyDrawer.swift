@@ -22,6 +22,14 @@ class ColonyDrawer: UIView {
             colonyWidth = self.currentColony!.xMax
             colonyHeight = self.currentColony!.yMax
         }
+        if self.secondColony != nil {
+            if self.secondColony!.xMax > colonyWidth {
+                colonyWidth = self.secondColony!.xMax
+            }
+            if self.secondColony!.yMax > colonyHeight {
+                colonyHeight = self.secondColony!.yMax
+            }
+        }
         let height = self.bounds.height/CGFloat(colonyHeight)
         let width = self.bounds.width/CGFloat(colonyWidth)
         if height >= width {
@@ -36,6 +44,14 @@ class ColonyDrawer: UIView {
         if self.currentColony != nil {
             colonyWidth = self.currentColony!.xMax
             colonyHeight = self.currentColony!.yMax
+        }
+        if self.secondColony != nil {
+            if self.secondColony!.xMax > colonyWidth {
+                colonyWidth = self.secondColony!.xMax
+            }
+            if self.secondColony!.yMax > colonyHeight {
+                colonyHeight = self.secondColony!.yMax
+            }
         }
         for x in 0..<colonyWidth {
             for y in 0..<colonyHeight {
