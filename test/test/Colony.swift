@@ -16,8 +16,8 @@ class Colony: CustomStringConvertible{
     
     var genNumber: Int = 0
     
-    let yMax = 60
-    let xMax = 60
+    var yMax = 60
+    var xMax = 60
     var wrapping: Bool = false
     
     func setName(name: String) {

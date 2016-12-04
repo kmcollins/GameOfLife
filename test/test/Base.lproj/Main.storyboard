@@ -81,13 +81,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jnm-dK-dzE">
                                         <rect key="frame" x="0.0" y="445" width="602" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F32-Pn-uoU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F32-Pn-uoU">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="X2X-n3-LrL">
+                                            <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="X2X-n3-LrL">
                                                 <rect key="frame" x="48" y="0.0" width="545" height="31"/>
                                                 <connections>
                                                     <action selector="speedSliderChanged:" destination="JEX-9P-axG" eventType="valueChanged" id="exX-7q-9QR"/>
@@ -141,7 +141,29 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pbw-QQ-kks">
-                                                <rect key="frame" x="83" y="0.0" width="519" height="30"/>
+                                                <rect key="frame" x="83" y="0.0" width="348" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Colony size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2W9-o5-fop">
+                                                <rect key="frame" x="431" y="0.0" width="93" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="60" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4kK-6Z-ZIN">
+                                                <rect key="frame" x="524" y="0.0" width="39" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="39" id="GqR-MX-Kgp"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="60" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncj-Iq-8X2">
+                                                <rect key="frame" x="563" y="0.0" width="39" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="39" id="kbI-dE-NAa"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -152,10 +174,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="f8j-WQ-Dng" firstAttribute="top" secondItem="r8g-7I-fSy" secondAttribute="bottom" id="MXp-WR-hBN"/>
-                            <constraint firstItem="f8j-WQ-Dng" firstAttribute="leading" secondItem="ewV-77-iE5" secondAttribute="leading" id="PXo-24-gWU"/>
-                            <constraint firstItem="f8j-WQ-Dng" firstAttribute="bottom" secondItem="WWc-fh-JEf" secondAttribute="top" id="aQb-xi-B9C"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="f8j-WQ-Dng" secondAttribute="trailing" constant="-22" id="ync-AF-6ua"/>
+                            <constraint firstItem="f8j-WQ-Dng" firstAttribute="bottom" secondItem="WWc-fh-JEf" secondAttribute="top" id="0Co-V9-HsR"/>
+                            <constraint firstItem="f8j-WQ-Dng" firstAttribute="leading" secondItem="ewV-77-iE5" secondAttribute="leading" id="DdU-Py-X5Z"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="f8j-WQ-Dng" secondAttribute="trailing" constant="-22" id="Ng3-44-rFk"/>
+                            <constraint firstItem="f8j-WQ-Dng" firstAttribute="top" secondItem="r8g-7I-fSy" secondAttribute="bottom" id="eur-GF-mvc"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -163,8 +185,10 @@
                     <connections>
                         <outlet property="addColStack" destination="F09-wG-lHU" id="qK1-y4-owW"/>
                         <outlet property="addColonyTextField" destination="pbw-QQ-kks" id="rp5-05-2za"/>
+                        <outlet property="colonyHeightTextField" destination="ncj-Iq-8X2" id="bp9-9Z-kRw"/>
                         <outlet property="colonyNameTextField" destination="FDa-bT-EB3" id="84l-bY-rtg"/>
                         <outlet property="colonyView" destination="tdI-UP-fBe" id="AuK-pz-7Nl"/>
+                        <outlet property="colonyWidthTextField" destination="4kK-6Z-ZIN" id="GXV-uu-75w"/>
                         <outlet property="coordinateText" destination="81U-Tw-y3h" id="1VX-eZ-5uV"/>
                         <outlet property="detailLabel" destination="3gR-fm-3UA" id="LAe-GZ-qZJ"/>
                         <outlet property="speed" destination="X2X-n3-LrL" id="IHv-OT-X4f"/>
@@ -252,6 +276,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>
