@@ -65,6 +65,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             templatePicker.setContentCompressionResistancePriority(250, forAxis: UILayoutConstraintAxis.Vertical)
             templateButton.setTitle("Select Template", forState: .Normal)
         }
+        self.displayColony()
     }
     
     // Returns the number of 'columns' to display...UIPickerView!
@@ -172,6 +173,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             editNameButton.setTitle("Edit Name/Templates", forState: .Normal)
             self.editNameStack.hidden = true
         }
+        self.displayColony()
     }
     
     
@@ -184,6 +186,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             addColonyButton.setTitle("Add Colony/Resize", forState: .Normal)
             self.addColStack.hidden = true
         }
+        self.displayColony()
     }
     
     
@@ -269,6 +272,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     func displayColony() {
         if let colony = detailItem {
             self.colonyView.currentColony = colony
+            self.colonyView.coordinateLabel = self.coordinateText
             self.colonyView.setNeedsDisplay()
         }
     }
