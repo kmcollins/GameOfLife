@@ -173,6 +173,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             editNameButton.setTitle("Edit Name/Templates", forState: .Normal)
             self.editNameStack.hidden = true
         }
+        self.displayColony()
     }
     
     
