@@ -52,10 +52,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBAction func selectTemplate(sender: AnyObject) {
         let makeVisible = templatePicker.hidden
         if makeVisible {
+            templatePicker.setContentHuggingPriority(250, forAxis: UILayoutConstraintAxis.Vertical)
+            templatePicker.setContentCompressionResistancePriority(750, forAxis: UILayoutConstraintAxis.Vertical)
             templatePicker.hidden = false
             templateButton.setTitle("Done", forState: .Normal)
         } else {
             templatePicker.hidden = true
+            templatePicker.setContentHuggingPriority(750, forAxis: UILayoutConstraintAxis.Vertical)
+            templatePicker.setContentCompressionResistancePriority(250, forAxis: UILayoutConstraintAxis.Vertical)
             templateButton.setTitle("Select Template", forState: .Normal)
         }
     }
