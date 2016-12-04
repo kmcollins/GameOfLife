@@ -35,12 +35,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBOutlet weak var textSpeed: UILabel!
     @IBOutlet weak var wrapping: UISwitch!
     @IBOutlet weak var detailLabel: UINavigationItem!
-    
     @IBOutlet var addColStack: UIStackView!
     @IBOutlet var addColonyTextField: UITextField!
-    
     @IBOutlet var templatePicker: UIPickerView!
     @IBOutlet var templateButton: UIButton!
+    @IBOutlet weak var colonyWidthTextField: UITextField!
+    @IBOutlet weak var colonyHeightTextField: UITextField!
     
     var secondColony: Colony?
     

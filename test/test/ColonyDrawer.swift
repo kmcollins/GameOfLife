@@ -13,12 +13,17 @@ class ColonyDrawer: UIView {
     var currentColony: Colony?
     var onTouching: Bool?
     var makingAlive: Bool?
-    
     var secondColony: Colony?
     
     var sideSize: CGFloat {
-        let height = self.bounds.height/60
-        let width = self.bounds.width/60
+        var colonyHeight = 60
+        var colonyWidth = 60
+        if self.currentColony != nil {
+            colonyWidth = self.currentColony!.xMax
+            colonyHeight = self.currentColony!.yMax
+        }
+        let height = self.bounds.height/CGFloat(colonyHeight)
+        let width = self.bounds.width/CGFloat(colonyWidth)
         if height >= width {
             return width
         }
@@ -26,8 +31,14 @@ class ColonyDrawer: UIView {
     }
     
     override func drawRect(rect: CGRect) {
-        for x in 0..<60 {
-            for y in 0..<60 {
+        var colonyHeight = 60
+        var colonyWidth = 60
+        if self.currentColony != nil {
+            colonyWidth = self.currentColony!.xMax
+            colonyHeight = self.currentColony!.yMax
+        }
+        for x in 0..<colonyWidth {
+            for y in 0..<colonyHeight {
                 let rectangle = colonyCoordinateToViewCoordinate(x, y: y)
                 let path = UIBezierPath(rect: rectangle)
                 UIColor.blackColor().setStroke()
