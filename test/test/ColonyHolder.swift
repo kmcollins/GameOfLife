@@ -15,11 +15,7 @@ class ColonyHolder {
     
     func addColony(colonyName: String) {
         let colony = Colony()
-        colony.setName(colonyName)
-        colony.setCellAlive(29, yCoor: 29)
-        colony.setCellAlive(30, yCoor: 29)
-        colony.setCellAlive(31, yCoor: 29)
-        colony.setCellAlive(30, yCoor: 30)
+        colony.setName(colonyName)        
         colonies.append(colony)
     }
     
