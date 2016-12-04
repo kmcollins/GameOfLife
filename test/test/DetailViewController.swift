@@ -20,11 +20,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
                 navigationItem.title = detailItem!.getName()
                 let originalCells = detailItem!.getCells()
                 if originalCells != Set() {
-                    //templateCells[0] = originalCells!
                     templateData!.setCurrentCells(originalCells)
                 }
                 colonyNameTextField.text = detailItem!.getName()
-                //colonyNameTextField.textColor = UIColor.lightGrayColor()
                 self.enable()
                 self.displayColony()
             }
@@ -54,9 +52,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     var masterController: MasterViewController?
     var evolving = false
     
-    /*var templates = ["Current", "Blank", "Basic", "Glider Gun"]
-    var templateCells = [Set(), Set(), Set([Coordinate(x:30, y:30), Coordinate(x: 29, y: 29), Coordinate(x: 30, y: 29), Coordinate(x: 31, y: 29)]), Set()]*/
-    
     @IBAction func selectTemplate(sender: AnyObject) {
         let makeVisible = templatePicker.hidden
         if makeVisible {
@@ -79,37 +74,29 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     
     // Returns the # of rows in each component.. ..UIPickerView!
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        //return templates.count
         return templateData!.getCount()
     }
     
     // The data to return for the row and component (column) that's being passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return templateData!.nameForRow(row)
-        //return templates[row]
     }
     
     // Catpure the picker view selection
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
-        //let newCells = templateCells[row]
         let newCells = templateData!.cellsForRow(row)
         detailItem!.replaceCellsWith(newCells)
         self.displayColony()
     }
     
     @IBAction func addTemplate(sender: AnyObject) {
-        /*templates.append(detailItem!.getName())
-        templateCells.append(detailItem!.getCells())*/
         templateData!.addTemplate(detailItem!.getName(), cells: detailItem!.getCells())
         templatePicker.reloadAllComponents()
     }
     
     var timer: NSTimer?
-    
-    //var currentEvolveNumber: Int = 0
-    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == colonyNameTextField {
@@ -152,10 +139,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBAction func play(sender: AnyObject) {
         if evolving {
             evolving = false
-            self.playButton.setTitle("play", forState: .Normal)
+            self.playButton.setTitle("Play", forState: .Normal)
             stopTimer()
         } else {
-            self.playButton.setTitle("pause", forState: .Normal)
+            self.playButton.setTitle("Pause", forState: .Normal)
             evolving = true
             startTimer(NSTimeInterval(5/speed.value))
         }
@@ -179,7 +166,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBAction func editNameButtonPressed(sender: AnyObject) {
         let hidden = self.editNameStack.hidden
         if hidden {
-            editNameButton.setTitle("done editing", forState: .Normal)
+            editNameButton.setTitle("Done Editing", forState: .Normal)
             self.editNameStack.hidden = false
         } else {
             editNameButton.setTitle("Edit Name/Templates", forState: .Normal)
@@ -191,7 +178,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBAction func addColonyResizeButtonPressed(sender: AnyObject) {
         let hidden = self.addColStack.hidden
         if hidden {
-            addColonyButton.setTitle("done adding/resizing", forState: .Normal)
+            addColonyButton.setTitle("Done Adding/Resizing", forState: .Normal)
             self.addColStack.hidden = false
         } else {
             addColonyButton.setTitle("Add Colony/Resize", forState: .Normal)
