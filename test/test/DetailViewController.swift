@@ -15,16 +15,19 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     var detailItem: Colony? {
         didSet {
             // Update the view.
-            self.configureView()
-            navigationItem.title = detailItem?.getName()
-            let originalCells = detailItem?.getCells()
-            if originalCells != Set() {
-                //templateCells[0] = originalCells!
-                templateData!.setCurrentCells(originalCells!)
+            if detailItem != nil {
+                self.configureView()
+                navigationItem.title = detailItem!.getName()
+                let originalCells = detailItem!.getCells()
+                if originalCells != Set() {
+                    //templateCells[0] = originalCells!
+                    templateData!.setCurrentCells(originalCells)
+                }
+                colonyNameTextField.text = detailItem!.getName()
+                //colonyNameTextField.textColor = UIColor.lightGrayColor()
+                self.enable()
+                self.displayColony()
             }
-            colonyNameTextField.text = detailItem?.getName()
-            //colonyNameTextField.textColor = UIColor.lightGrayColor()
-            self.displayColony()
         }
     }
     
@@ -41,10 +44,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBOutlet var templateButton: UIButton!
     @IBOutlet weak var colonyWidthTextField: UITextField!
     @IBOutlet weak var colonyHeightTextField: UITextField!
+    @IBOutlet weak var editNameButton: UIButton!
+    @IBOutlet weak var addColonyButton: UIButton!
+    @IBOutlet weak var editNameStack: UIStackView!
     
+    @IBOutlet weak var playButton: UIButton!
     var secondColony: Colony?
     
     var masterController: MasterViewController?
+    var evolving = false
     
     /*var templates = ["Current", "Blank", "Basic", "Glider Gun"]
     var templateCells = [Set(), Set(), Set([Coordinate(x:30, y:30), Coordinate(x: 29, y: 29), Coordinate(x: 30, y: 29), Coordinate(x: 31, y: 29)]), Set()]*/
@@ -102,7 +110,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     
     //var currentEvolveNumber: Int = 0
     
-    var evolving = false
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == colonyNameTextField {
@@ -127,8 +134,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             if let index = masterController?.colonyHolder.indexOfName(name) {
                 let col2 = masterController?.colonyHolder.colonies[index]
                 secondColony = col2
-                colonyView.secondColony = self.secondColony
-                addColStack.hidden = true // this way users can add only one colony
+                colonyView.secondColony = self.secondColony                
                 self.displayColony()
             }
         }
@@ -144,8 +150,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     }
     
     @IBAction func play(sender: AnyObject) {
-        evolving = true
-        startTimer(NSTimeInterval(5/speed.value))
+        if evolving {
+            evolving = false
+            self.playButton.setTitle("play", forState: .Normal)
+            stopTimer()
+        } else {
+            self.playButton.setTitle("pause", forState: .Normal)
+            evolving = true
+            startTimer(NSTimeInterval(5/speed.value))
+        }
     }
     
     func stopTimer() {
@@ -157,16 +170,35 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     @IBAction func speedSliderChanged(sender: UISlider) {
         let value = Int(sender.value)
         textSpeed.text = "\(value)"
-        if value == 0 {
+        if evolving {
             stopTimer()
-            evolving = false
-        } else {
-            if evolving {
-                stopTimer()
-                startTimer(NSTimeInterval(5/sender.value))
-            }
+            startTimer(NSTimeInterval(5/sender.value))
         }
     }
+    
+    @IBAction func editNameButtonPressed(sender: AnyObject) {
+        let hidden = self.editNameStack.hidden
+        if hidden {
+            editNameButton.setTitle("done editing", forState: .Normal)
+            self.editNameStack.hidden = false
+        } else {
+            editNameButton.setTitle("Edit Name/Templates", forState: .Normal)
+            self.editNameStack.hidden = true
+        }
+    }
+    
+    
+    @IBAction func addColonyResizeButtonPressed(sender: AnyObject) {
+        let hidden = self.addColStack.hidden
+        if hidden {
+            addColonyButton.setTitle("done adding/resizing", forState: .Normal)
+            self.addColStack.hidden = false
+        } else {
+            addColonyButton.setTitle("Add Colony/Resize", forState: .Normal)
+            self.addColStack.hidden = true
+        }
+    }
+    
     
     func startTimer(interval: NSTimeInterval) {
         timer = NSTimer.scheduledTimerWithTimeInterval(interval,
@@ -237,6 +269,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func enable() {
+        self.addColonyButton.enabled = true
+        self.editNameButton.enabled = true
+        self.wrapping.enabled = true
+        self.speed.enabled = true
+        self.playButton.enabled = true
     }
     
     func displayColony() {
