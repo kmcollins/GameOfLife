@@ -14,6 +14,7 @@ class ColonyDrawer: UIView {
     var onTouching: Bool?
     var makingAlive: Bool?
     var secondColony: Colony?
+    var coordinateLabel: UILabel?
     
     var sideSize: CGFloat {
         var colonyHeight = 60
@@ -106,6 +107,9 @@ class ColonyDrawer: UIView {
                 self.makingAlive = true
                 currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
             }
+            if self.coordinateLabel != nil {
+                self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
+            }
         }
         setNeedsDisplay()
     }
@@ -121,6 +125,9 @@ class ColonyDrawer: UIView {
                 } else {
                     currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
                 }
+            }
+            if self.coordinateLabel != nil {
+                self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
             }
         }
         setNeedsDisplay()
@@ -138,6 +145,9 @@ class ColonyDrawer: UIView {
                 } else {
                     currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
                 }
+            }
+            if self.coordinateLabel != nil {
+                self.coordinateLabel!.text = "(x,y)"
             }
         }
         setNeedsDisplay()
