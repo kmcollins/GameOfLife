@@ -18,10 +18,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             if detailItem != nil {
                 self.configureView()
                 navigationItem.title = detailItem!.getName()
-                let originalCells = detailItem!.getCells()
-                if originalCells != Set() {
-                    templateData!.setCurrentCells(originalCells)
-                }
                 colonyNameTextField.text = detailItem!.getName()
                 self.enable()
                 self.displayColony()
@@ -58,6 +54,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
             templatePicker.setContentHuggingPriority(250, forAxis: UILayoutConstraintAxis.Vertical)
             templatePicker.setContentCompressionResistancePriority(750, forAxis: UILayoutConstraintAxis.Vertical)
             templatePicker.hidden = false
+            templateData!.setCurrentCells(detailItem!.getCells())
             templateButton.setTitle("Done", forState: .Normal)
         } else {
             templatePicker.hidden = true
