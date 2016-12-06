@@ -16,46 +16,40 @@ class ColonyDrawer: UIView {
     var secondColony: Colony?
     var coordinateLabel: UILabel?
     
-    var sideSize: CGFloat {
-        var colonyHeight = 60
+    var cellSide: CGFloat {
         var colonyWidth = 60
+        var colonyHeight = 60
         if self.currentColony != nil {
-            colonyWidth = self.currentColony!.xMax
             colonyHeight = self.currentColony!.yMax
+            colonyWidth = self.currentColony!.xMax
         }
         if self.secondColony != nil {
-            if self.secondColony!.xMax > colonyWidth {
-                colonyWidth = self.secondColony!.xMax
-            }
             if self.secondColony!.yMax > colonyHeight {
                 colonyHeight = self.secondColony!.yMax
             }
+            if self.secondColony!.xMax > colonyWidth {
+                colonyWidth = self.secondColony!.xMax
+            }
         }
-        let height = self.bounds.height/CGFloat(colonyHeight)
-        let width = self.bounds.width/CGFloat(colonyWidth)
-        if height >= width {
-            return width
+        var side = colonyHeight
+        if colonyWidth > colonyHeight {
+            side = colonyWidth
         }
-        return height
+        return self.viewBounds.height/CGFloat(side)
+    }
+    var viewBounds: CGRect {
+        if self.bounds.height >= self.bounds.width { //use width:
+            let additionValue = (self.bounds.height - self.bounds.width)/2
+            return CGRectMake(self.bounds.minX, self.bounds.minY+additionValue, self.bounds.width, self.bounds.width)
+        } else { //use height
+            let additionValue = (self.bounds.width - self.bounds.height)/2
+            return CGRectMake(self.bounds.minX+additionValue, self.bounds.minY, self.bounds.height, self.bounds.height)
+        }
     }
     
     override func drawRect(rect: CGRect) {
-        var colonyHeight = 60
-        var colonyWidth = 60
-        if self.currentColony != nil {
-            colonyWidth = self.currentColony!.xMax
-            colonyHeight = self.currentColony!.yMax
-        }
-        if self.secondColony != nil {
-            if self.secondColony!.xMax > colonyWidth {
-                colonyWidth = self.secondColony!.xMax
-            }
-            if self.secondColony!.yMax > colonyHeight {
-                colonyHeight = self.secondColony!.yMax
-            }
-        }
-        for x in 0..<colonyWidth {
-            for y in 0..<colonyHeight {
+        for x in 0..<Int(self.viewBounds.width/self.cellSide) {
+            for y in 0..<Int(self.viewBounds.height/self.cellSide) {
                 let rectangle = colonyCoordinateToViewCoordinate(x, y: y)
                 let path = UIBezierPath(rect: rectangle)
                 UIColor.blackColor().setStroke()
@@ -87,11 +81,11 @@ class ColonyDrawer: UIView {
     }
     
     func colonyCoordinateToViewCoordinate(x: Int, y: Int)-> CGRect {
-        return CGRectMake(self.bounds.minX+CGFloat(x)*self.sideSize, self.bounds.minY+CGFloat(y)*self.sideSize, self.sideSize, self.sideSize)
+        return CGRectMake(self.viewBounds.minX+CGFloat(x)*self.cellSide, self.bounds.minY+CGFloat(y)*self.cellSide, self.cellSide, self.cellSide)
     }
     
     func viewCoordinateToColonyCoordinate(point: CGPoint)->Coordinate {
-        return Coordinate(x: Int(point.x/self.sideSize), y: Int(point.y/self.sideSize))
+        return Coordinate(x: Int((point.x+(self.bounds.minX-self.viewBounds.minX))/self.cellSide), y: Int((point.y+(self.bounds.minY-self.viewBounds.minY))/self.cellSide))
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -99,16 +93,18 @@ class ColonyDrawer: UIView {
         let location = touch.locationInView(self)
         let cell = viewCoordinateToColonyCoordinate(location)
         if currentColony != nil {
-            self.onTouching = true
-            if currentColony!.cells.contains(cell) {
-                self.makingAlive = false
-                currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
-            } else {
-                self.makingAlive = true
-                currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
-            }
-            if self.coordinateLabel != nil {
-                self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
+            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getY() > 0 && cell.getX() > 0 {
+                self.onTouching = true
+                if currentColony!.cells.contains(cell) {
+                    self.makingAlive = false
+                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+                } else {
+                    self.makingAlive = true
+                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+                }
+                if self.coordinateLabel != nil {
+                    self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
+                }
             }
         }
         setNeedsDisplay()
@@ -119,15 +115,17 @@ class ColonyDrawer: UIView {
         let location = touch.locationInView(self)
         let cell = viewCoordinateToColonyCoordinate(location)
         if currentColony != nil {
-            if (self.makingAlive != nil) {
-                if self.makingAlive! {
-                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
-                } else {
-                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() > 0 && cell.getY() > 0{
+                if (self.makingAlive != nil) {
+                    if self.makingAlive! {
+                    currentColony!.setCellAlive(cell.getX(), yCoor:     cell.getY())
+                    } else {
+                    currentColony!.setCellDead(cell.getX(), yCoor:  cell.getY())
+                    }
                 }
-            }
-            if self.coordinateLabel != nil {
-                self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
+                if self.coordinateLabel != nil {
+                    self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
+                }
             }
         }
         setNeedsDisplay()
@@ -139,15 +137,17 @@ class ColonyDrawer: UIView {
         let cell = viewCoordinateToColonyCoordinate(location)
         if currentColony != nil {
             self.onTouching = false
-            if (self.makingAlive != nil) {
-                if self.makingAlive! {
-                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
-                } else {
-                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() > 0 && cell.getY() > 0{
+                if (self.makingAlive != nil) {
+                    if self.makingAlive! {
+                        currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+                    } else {
+                        currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+                    }
                 }
-            }
-            if self.coordinateLabel != nil {
-                self.coordinateLabel!.text = "(x,y)"
+                if self.coordinateLabel != nil {
+                    self.coordinateLabel!.text = "(x,y)"
+                }
             }
         }
         setNeedsDisplay()
