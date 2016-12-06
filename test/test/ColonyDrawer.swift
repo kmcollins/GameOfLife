@@ -93,7 +93,7 @@ class ColonyDrawer: UIView {
         let location = touch.locationInView(self)
         let cell = viewCoordinateToColonyCoordinate(location)
         if currentColony != nil {
-            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getY() > 0 && cell.getX() > 0 {
+            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getY() >= 0 && cell.getX() >= 0 {
                 self.onTouching = true
                 if currentColony!.cells.contains(cell) {
                     self.makingAlive = false
@@ -115,7 +115,7 @@ class ColonyDrawer: UIView {
         let location = touch.locationInView(self)
         let cell = viewCoordinateToColonyCoordinate(location)
         if currentColony != nil {
-            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() > 0 && cell.getY() > 0{
+            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() >= 0 && cell.getY() >= 0{
                 if (self.makingAlive != nil) {
                     if self.makingAlive! {
                     currentColony!.setCellAlive(cell.getX(), yCoor:     cell.getY())
@@ -137,7 +137,7 @@ class ColonyDrawer: UIView {
         let cell = viewCoordinateToColonyCoordinate(location)
         if currentColony != nil {
             self.onTouching = false
-            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() > 0 && cell.getY() > 0{
+            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() >= 0 && cell.getY() >= 0{
                 if (self.makingAlive != nil) {
                     if self.makingAlive! {
                         currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
