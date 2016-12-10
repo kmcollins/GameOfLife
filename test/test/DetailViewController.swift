@@ -15,13 +15,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     var detailItem: Colony? {
         didSet {
             // Update the view.
-            if detailItem != nil {
-                self.configureView()
-                navigationItem.title = detailItem!.getName()
-                colonyNameTextField.text = detailItem!.getName()
-                self.enable()
-                self.displayColony()
+            if let colony = detailItem {
+                navigationItem.title = colony.getName()
+                colonyNameTextField.text = colony.getName()
+                self.enable(true)
+            } else {
+                navigationItem.title = "Colony"
+                colonyNameTextField.text = "Colony"
+                self.enable(false)
             }
+            self.displayColony()
         }
     }
     
@@ -125,15 +128,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         }
     }
     
-    func configureView() {
-        // Update the user interface for the detail item.
-        if self.detailItem != nil {
-            /*if let label = self.detailDescriptionLabel {
-             label.text = detail.description
-             }*/
-        }
-    }
-    
     @IBAction func play(sender: AnyObject) {
         if evolving {
             evolving = false
@@ -217,7 +211,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureView()
+        self.displayColony()
         // Speed = # of evolutions per second
         speed.minimumValue = 0
         speed.maximumValue = 50
@@ -258,20 +252,23 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         // Dispose of any resources that can be recreated.
     }
     
-    func enable() {
-        self.addColonyButton.enabled = true
-        self.editNameButton.enabled = true
-        self.wrapping.enabled = true
-        self.speed.enabled = true
-        self.playButton.enabled = true
+    func enable(enabled: Bool) {
+        self.addColonyButton.enabled = enabled
+        self.editNameButton.enabled = enabled
+        self.wrapping.enabled = enabled
+        self.speed.enabled = enabled
+        self.playButton.enabled = enabled
     }
     
     func displayColony() {
         if let colony = detailItem {
             self.colonyView.currentColony = colony
-            self.colonyView.coordinateLabel = self.coordinateText
-            self.colonyView.setNeedsDisplay()
         }
+        if let secondcol = secondColony {
+            self.colonyView.secondColony = secondcol
+        }
+        self.colonyView.coordinateLabel = self.coordinateText
+        self.colonyView.setNeedsDisplay()
     }
     
 }

@@ -48,7 +48,7 @@ class Colony: CustomStringConvertible{
     
     func isCellAlive(xCoor:Int, yCoor: Int) -> Bool{
         for c in cells {
-            if c.getX() == xCoor && c.getY() == yCoor {
+            if c.x == xCoor && c.y == yCoor {
                 return true
             }
         }
@@ -93,7 +93,7 @@ class Colony: CustomStringConvertible{
         neighbors.insert(Coordinate(x: x + 1, y: y - 1));
         neighbors.insert(Coordinate(x: x - 1, y: y + 1));
         if wrapping { //converts all cells to wrapped form
-            neighbors = Set(neighbors.map({wrap($0.getX(), y: $0.getY())}))
+            neighbors = Set(neighbors.map({wrap($0.x, y: $0.y)}))
         }
         return neighbors;
     }

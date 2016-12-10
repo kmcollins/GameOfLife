@@ -34,7 +34,7 @@ class ColonyHolder {
     
     func setCellAliveInColony(index: Int, coordinate: Coordinate)-> Bool {
         if index >= 0 && index < colonies.count {
-            colonies[index].setCellAlive(coordinate.getX(), yCoor: coordinate.getY())
+            colonies[index].setCellAlive(coordinate.x, yCoor: coordinate.y)
             return true
         }
         return false
@@ -42,7 +42,7 @@ class ColonyHolder {
     
     func setCellDeadInColony(index: Int, coordinate: Coordinate)->Bool {
         if index >= 0 && index < colonies.count {
-            colonies[index].setCellDead(coordinate.getX(), yCoor: coordinate.getY())
+            colonies[index].setCellDead(coordinate.x, yCoor: coordinate.y)
             return true
         }
         return false

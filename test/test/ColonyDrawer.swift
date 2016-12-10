@@ -11,24 +11,23 @@ import UIKit
 class ColonyDrawer: UIView {
     
     var currentColony: Colony?
-    var onTouching: Bool?
-    var makingAlive: Bool?
+    var makingAlive: Bool = false
     var secondColony: Colony?
     var coordinateLabel: UILabel?
     
     var cellSide: CGFloat {
         var colonyWidth = 60
         var colonyHeight = 60
-        if self.currentColony != nil {
-            colonyHeight = self.currentColony!.yMax
-            colonyWidth = self.currentColony!.xMax
+        if let colony = currentColony {
+            colonyHeight = colony.yMax
+            colonyWidth = colony.xMax
         }
-        if self.secondColony != nil {
-            if self.secondColony!.yMax > colonyHeight {
-                colonyHeight = self.secondColony!.yMax
+        if let secondcol = secondColony {
+            if secondcol.yMax > colonyHeight {
+                colonyHeight = secondcol.yMax
             }
-            if self.secondColony!.xMax > colonyWidth {
-                colonyWidth = self.secondColony!.xMax
+            if secondcol.xMax > colonyWidth {
+                colonyWidth = secondcol.xMax
             }
         }
         var side = colonyHeight
@@ -39,25 +38,25 @@ class ColonyDrawer: UIView {
     }
     var viewBounds: CGRect {
         if self.bounds.height >= self.bounds.width { //use width:
-            let additionValue = (self.bounds.height - self.bounds.width)/2
+            let additionValue = (self.bounds.height - self.bounds.width)/2 //center vertically
             return CGRectMake(self.bounds.minX, self.bounds.minY+additionValue, self.bounds.width, self.bounds.width)
         } else { //use height
-            let additionValue = (self.bounds.width - self.bounds.height)/2
+            let additionValue = (self.bounds.width - self.bounds.height)/2//center horizontally
             return CGRectMake(self.bounds.minX+additionValue, self.bounds.minY, self.bounds.height, self.bounds.height)
         }
     }
     
     override func drawRect(rect: CGRect) {
-        for x in 0..<Int(self.viewBounds.width/self.cellSide) {
-            for y in 0..<Int(self.viewBounds.height/self.cellSide) {
+        for x in 0..<Int(self.viewBounds.width/self.cellSide) { //number of cells horizontally
+            for y in 0..<Int(self.viewBounds.height/self.cellSide) { //number of cells vertically
                 let rectangle = colonyCoordinateToViewCoordinate(x, y: y)
                 let path = UIBezierPath(rect: rectangle)
                 UIColor.blackColor().setStroke()
                 path.lineWidth = 0.5
                 path.stroke()
-                if self.currentColony != nil {
+                if let colony = self.currentColony {
                     if let col2 = self.secondColony {
-                        if col2.cells.contains(Coordinate(x: x, y: y)) && self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
+                        if col2.cells.contains(Coordinate(x: x, y: y)) && colony.cells.contains(Coordinate(x: x, y: y)) {
                             UIColor.purpleColor().setFill()
                             path.fill()
                         }
@@ -65,16 +64,15 @@ class ColonyDrawer: UIView {
                             UIColor.redColor().setFill()
                             path.fill()
                         }
-                        else if self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
+                        else if colony.cells.contains(Coordinate(x: x, y: y)) {
                             UIColor.blueColor().setFill()
                             path.fill()
                         }
                     }
-                    else if self.currentColony!.cells.contains(Coordinate(x: x, y: y)) {
+                    else if colony.cells.contains(Coordinate(x: x, y: y)) {
                         UIColor.blueColor().setFill()
                         path.fill()
                     }
-                    
                 }
             }
         }
@@ -89,69 +87,60 @@ class ColonyDrawer: UIView {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first!
-        let location = touch.locationInView(self)
-        let cell = viewCoordinateToColonyCoordinate(location)
-        if currentColony != nil {
-            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getY() >= 0 && cell.getX() >= 0 {
-                self.onTouching = true
-                if currentColony!.cells.contains(cell) {
+        let cell = viewCoordinateToColonyCoordinate(touches.first!.locationInView(self))
+        if let colony = currentColony {
+            if cell.x < colony.xMax && cell.y < colony.yMax && cell.y >= 0 && cell.x >= 0 {
+                if colony.cells.contains(cell) {
                     self.makingAlive = false
-                    currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
+                    colony.setCellDead(cell.x, yCoor: cell.y)
                 } else {
                     self.makingAlive = true
-                    currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
+                    colony.setCellAlive(cell.x, yCoor: cell.y)
                 }
-                if self.coordinateLabel != nil {
-                    self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
-                }
+            }
+            if let coorLabel = coordinateLabel {
+                coorLabel.text = "(\(cell.x),\(cell.y))"
             }
         }
         setNeedsDisplay()
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first!
-        let location = touch.locationInView(self)
-        let cell = viewCoordinateToColonyCoordinate(location)
-        if currentColony != nil {
-            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() >= 0 && cell.getY() >= 0{
-                if (self.makingAlive != nil) {
-                    if self.makingAlive! {
-                    currentColony!.setCellAlive(cell.getX(), yCoor:     cell.getY())
-                    } else {
-                    currentColony!.setCellDead(cell.getX(), yCoor:  cell.getY())
-                    }
+        let cell = viewCoordinateToColonyCoordinate(touches.first!.locationInView(self))
+        if let colony = currentColony {
+            if cell.x < colony.xMax && cell.y < colony.yMax && cell.y >= 0 && cell.x >= 0 {
+                if makingAlive {
+                    colony.setCellAlive(cell.x, yCoor: cell.y)
+                } else {
+                    colony.setCellDead(cell.x, yCoor: cell.y)
                 }
-                if self.coordinateLabel != nil {
-                    self.coordinateLabel!.text = "(\(cell.getX()),\(cell.getY()))"
-                }
+            }
+            if let coorLabel = coordinateLabel {
+                coorLabel.text = "(\(cell.x),\(cell.y))"
             }
         }
         setNeedsDisplay()
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first!
-        let location = touch.locationInView(self)
-        let cell = viewCoordinateToColonyCoordinate(location)
-        if currentColony != nil {
-            self.onTouching = false
-            if cell.getX() < currentColony!.xMax && cell.getY() < currentColony!.yMax && cell.getX() >= 0 && cell.getY() >= 0{
-                if (self.makingAlive != nil) {
-                    if self.makingAlive! {
-                        currentColony!.setCellAlive(cell.getX(), yCoor: cell.getY())
-                    } else {
-                        currentColony!.setCellDead(cell.getX(), yCoor: cell.getY())
-                    }
+        let cell = viewCoordinateToColonyCoordinate(touches.first!.locationInView(self))
+        if let colony = currentColony {
+            if cell.x < colony.xMax && cell.y < colony.yMax && cell.y >= 0 && cell.x >= 0 {
+                if makingAlive {
+                    colony.setCellAlive(cell.x, yCoor: cell.y)
+                } else {
+                    colony.setCellDead(cell.x, yCoor: cell.y)
                 }
-                if self.coordinateLabel != nil {
-                    self.coordinateLabel!.text = "(x,y)"
+                
+                if let coorLabel = coordinateLabel {
+                    coorLabel.text = "(x,y)"
                 }
             }
+            
         }
         setNeedsDisplay()
     }
+    
 }
 
 
