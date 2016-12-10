@@ -16,15 +16,7 @@ struct Coordinate: Hashable{
         self.x = x
         self.y = y
     }
-    
-    func getX() -> Int {
-        return x
-    }
-    
-    func getY() -> Int {
-        return y
-    }
-    
+        
     var hashValue: Int {
         return 1000 * x + y
     }
